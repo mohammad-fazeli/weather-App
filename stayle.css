@@ -65,6 +65,7 @@ input::placeholder {
 .degree-section h2 {
   font-size: 40px;
 }
+
 @media only screen and (max-width: 630px) {
   input {
     width: 80%;

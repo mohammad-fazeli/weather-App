@@ -5,24 +5,22 @@ const temperatureDegree = document.querySelector(".temperature-degree");
 const input = document.querySelector("input");
 const search = document.querySelector(".fa-search");
 const tDescription = document.querySelector(".temperature-description");
-
-search.addEventListener("click", searchCity);
-
 function searchCity() {
   let cityName = input.value;
-  fetch(
-    `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apikey}`
-  )
-    .then((response) => response.json())
-    .then((data) => setData(data));
+  if (cityName !== "") {
+    fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apikey}`
+    )
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  }
 }
 
 function setData(data) {
-  if (data.cod == 400) {
-    console.log("place enet city name");
+  if (data.cod == 404) {
+    alert("City not found");
+    input.value = "";
     return;
-  } else if (data.cod == 404) {
-    console.log("city not found");
   }
   locationTimezone.textContent = data.name;
   temperatureDegree.textContent = converttoC(data.main.temp);
@@ -37,6 +35,9 @@ function converttoC(p) {
   let r = p - 273;
   return r.toFixed(2) + " C";
 }
+
+search.addEventListener("click", searchCity);
+
 temperatureDegree.addEventListener("click", (e) => {
   if (temperatureDegree.classList.contains("c")) {
     temperatureDegree.textContent =
@@ -47,5 +48,23 @@ temperatureDegree.addEventListener("click", (e) => {
       parseFloat(temperatureDegree.textContent)
     );
     temperatureDegree.classList.add("c");
+  }
+});
+
+window.addEventListener("load", () => {
+  let long;
+  let lat;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      long = position.coords.longitude;
+      lat = position.coords.latitude;
+    });
+  }
+  if (!isNaN(lat) && !isNaN(long)) {
+    fetch(
+      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
+    )
+      .then((response) => response.json())
+      .then((data) => setData(data));
   }
 });
