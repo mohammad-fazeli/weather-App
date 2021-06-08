@@ -9,7 +9,7 @@ function searchCity() {
   let cityName = input.value;
   if (cityName !== "") {
     fetch(
-      `api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apikey}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apikey}`
     )
       .then((response) => response.json())
       .then((data) => setData(data));
@@ -62,7 +62,7 @@ window.addEventListener("load", () => {
   }
   if (!isNaN(lat) && !isNaN(long)) {
     fetch(
-      `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
     )
       .then((response) => response.json())
       .then((data) => setData(data));
