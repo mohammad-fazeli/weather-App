@@ -24,6 +24,7 @@ function setData(data) {
   }
   locationTimezone.textContent = data.name;
   temperatureDegree.textContent = converttoC(data.main.temp);
+  temperatureDegree.classList.add("c");
   icon.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
