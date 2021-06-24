@@ -65,18 +65,18 @@ window.addEventListener("load", () => {
     navigator.geolocation.getCurrentPosition((position) => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
-      document.querySelector(".log").innerHTML = `vorod`;
+
+      document.querySelector(
+        ".log"
+      ).innerHTML = `long is:${long}, lat is:${lat} is a number`;
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
+      )
+        .then((response) => response.json())
+        .then((data) => setData(data));
+      Loding.classList.add("off");
     });
   }
-  document.querySelector(
-    ".log"
-  ).innerHTML = `long is:${long}, lat is:${lat} is a number`;
-  fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
-  )
-    .then((response) => response.json())
-    .then((data) => setData(data));
-  Loding.classList.add("off");
 });
 
 document.addEventListener("keypress", (e) => {
