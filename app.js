@@ -71,16 +71,14 @@ window.addEventListener("load", () => {
       ).innerHTML = `long is:${long}, lat is:${lat}`;
     });
   }
-  if (lat !== undefined && long !== undefined) {
-    document.querySelector(
-      ".log"
-    ).innerHTML = `long is:${long}, lat is:${lat} is a number`;
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
-    )
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }
+  document.querySelector(
+    ".log"
+  ).innerHTML = `long is:${long}, lat is:${lat} is a number`;
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
+  )
+    .then((response) => response.json())
+    .then((data) => setData(data));
   Loding.classList.add("off");
 });
 
