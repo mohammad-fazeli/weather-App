@@ -58,10 +58,14 @@ temperatureDegree.addEventListener("click", (e) => {
 window.addEventListener("load", () => {
   let long;
   let lat;
+  Loding.classList.remove("off");
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
+      document.querySelector(
+        ".log"
+      ).innerHTML = `long is:${long}, lat is:${lat}`;
     });
   }
   if (!isNaN(lat) && !isNaN(long)) {
@@ -71,6 +75,7 @@ window.addEventListener("load", () => {
       .then((response) => response.json())
       .then((data) => setData(data));
   }
+  Loding.classList.add("off");
 });
 
 document.addEventListener("keypress", (e) => {
