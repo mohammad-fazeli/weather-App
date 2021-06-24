@@ -59,14 +59,22 @@ window.addEventListener("load", () => {
   let long;
   let lat;
   Loding.classList.remove("off");
+  document.querySelector(".log").innerHTML = `karej`;
+
   if (navigator.geolocation) {
+    document.querySelector(".log").innerHTML = `vorod`;
     navigator.geolocation.getCurrentPosition((position) => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
+      document.querySelector(
+        ".log"
+      ).innerHTML = `long is:${long}, lat is:${lat}`;
     });
   }
   if (!isNaN(lat) && !isNaN(long)) {
-    document.querySelector(".log").innerHTML = `long is:${long}, lat is:${lat}`;
+    document.querySelector(
+      ".log"
+    ).innerHTML = `long is:${long}, lat is:${lat} is a number`;
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
     )
