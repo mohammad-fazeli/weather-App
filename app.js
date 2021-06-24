@@ -58,19 +58,22 @@ temperatureDegree.addEventListener("click", (e) => {
 window.addEventListener("load", () => {
   let long;
   let lat;
+  Loding.classList.remove("off");
+  console.log();
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
+
+      await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
+      )
+        .then((response) => response.json())
+        .then((data) => setData(data))
+        .catch((eer) => console.log(eer));
     });
   }
-  if (!isNaN(lat) && !isNaN(long)) {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
-    )
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }
+  Loding.classList.add("off");
 });
 
 document.addEventListener("keypress", (e) => {
