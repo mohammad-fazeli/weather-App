@@ -62,13 +62,10 @@ window.addEventListener("load", () => {
   document.querySelector(".log").innerHTML = `karej`;
 
   if (navigator.geolocation) {
-    document.querySelector(".log").innerHTML = `vorod`;
     navigator.geolocation.getCurrentPosition((position) => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
-      document.querySelector(
-        ".log"
-      ).innerHTML = `long is:${long}, lat is:${lat}`;
+      document.querySelector(".log").innerHTML = `vorod`;
     });
   }
   document.querySelector(
