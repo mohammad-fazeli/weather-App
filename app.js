@@ -71,7 +71,7 @@ window.addEventListener("load", () => {
       ).innerHTML = `long is:${long}, lat is:${lat}`;
     });
   }
-  if (!isNaN(lat) && !isNaN(long)) {
+  if (lat !== undefined && long !== undefined) {
     document.querySelector(
       ".log"
     ).innerHTML = `long is:${long}, lat is:${lat} is a number`;
