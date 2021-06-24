@@ -63,12 +63,10 @@ window.addEventListener("load", () => {
     navigator.geolocation.getCurrentPosition((position) => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
-      document.querySelector(
-        ".log"
-      ).innerHTML = `long is:${long}, lat is:${lat}`;
     });
   }
   if (!isNaN(lat) && !isNaN(long)) {
+    document.querySelector(".log").innerHTML = `long is:${long}, lat is:${lat}`;
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
     )
