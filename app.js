@@ -5,21 +5,25 @@ const temperatureDegree = document.querySelector(".temperature-degree");
 const input = document.querySelector("input");
 const search = document.querySelector(".fa-search");
 const tDescription = document.querySelector(".temperature-description");
-function searchCity() {
+const Loding = document.querySelector(".lodaing");
+
+async function searchCity() {
   let cityName = input.value;
+  input.value = "";
+  Loding.classList.remove("off");
   if (cityName !== "") {
-    fetch(
+    await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apikey}`
     )
       .then((response) => response.json())
       .then((data) => setData(data));
   }
+  Loding.classList.add("off");
 }
 
 function setData(data) {
   if (data.cod == 404) {
     alert("City not found");
-    input.value = "";
     return;
   }
   locationTimezone.textContent = data.name;
@@ -66,5 +70,11 @@ window.addEventListener("load", () => {
     )
       .then((response) => response.json())
       .then((data) => setData(data));
+  }
+});
+
+document.addEventListener("keypress", (e) => {
+  if (e.keyCode === 13) {
+    searchCity();
   }
 });
